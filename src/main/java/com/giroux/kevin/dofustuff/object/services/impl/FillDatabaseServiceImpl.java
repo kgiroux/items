@@ -110,7 +110,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 					media.setFileName( item.getImageId() + EXTENSION);
 					media.setId(String.valueOf(item.getImageId()));
 					media.setName(item.getName());
-					media.setPath("/Users/girouxkevin/downloadImage/" + item.getImageId() + EXTENSION);
+					media.setPath("/home/dofustuff/media/" + item.getImageId() + EXTENSION);
 					media.setTypeMedia(TypeMedia.PICTURE);
 					itemClient.saveImageMetadata(media);
 
@@ -143,7 +143,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 		response = client.execute(httpGet);
 		entity = response.getEntity();
 		stream = entity.getContent();
-		try (OutputStream out = new BufferedOutputStream(new FileOutputStream("/Users/girouxkevin/downloadImage/" + item.getImageId() + EXTENSION))) {
+		try (OutputStream out = new BufferedOutputStream(new FileOutputStream("/home/dofustuff/media/" + item.getImageId() + EXTENSION))) {
             for (int bit; (bit = stream.read()) != -1; ) {
                 out.write(bit);
             }
