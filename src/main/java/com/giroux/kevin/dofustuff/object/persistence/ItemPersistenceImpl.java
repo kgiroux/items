@@ -1,15 +1,16 @@
 package com.giroux.kevin.dofustuff.object.persistence;
 
-import java.util.List;
-
+import com.giroux.kevin.dofustuff.commons.item.Item;
+import com.giroux.kevin.dofustuff.commons.item.ItemCategory;
+import com.giroux.kevin.dofustuff.object.persistence.entity.ItemEntity;
+import com.giroux.kevin.dofustuff.object.persistence.factory.ItemFactory;
+import com.giroux.kevin.dofustuff.object.persistence.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
-import com.giroux.kevin.dofustuff.object.dto.Item;
-import com.giroux.kevin.dofustuff.object.persistence.dao.ItemEntity;
-import com.giroux.kevin.dofustuff.object.persistence.factory.ItemFactory;
-import com.giroux.kevin.dofustuff.object.persistence.repository.ItemRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 @Repository("itemPersistenceImpl")
 public class ItemPersistenceImpl implements ItemPersistence {
 
@@ -21,20 +22,21 @@ public class ItemPersistenceImpl implements ItemPersistence {
 	
 	@Override
 	public List<Item> retrieveListObjectByLevel(int level) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ItemEntity> returnList = itemRepository.findByLevelBetween(level -10, level +10 );
+		return returnList.stream().map(itemFactory::entityToDto).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Item> retrieveListObjectByType(String type) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ItemEntity> returnList = itemRepository.findByCategory(ItemCategory.findByCategory(type));
+		return returnList.stream().map(itemFactory::entityToDto).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Item> retrieveListObjectByTypeAndLevel(int level, String type) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ItemEntity> returnList = itemRepository.findByLevelAndCategory(level, ItemCategory.findByCategory(type));
+		return returnList.stream().map(itemFactory::entityToDto).collect(Collectors.toList());
+
 	}
 
 	@Override

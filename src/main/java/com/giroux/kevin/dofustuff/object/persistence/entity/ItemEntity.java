@@ -1,15 +1,10 @@
-package com.giroux.kevin.dofustuff.object.persistence.dao;
+package com.giroux.kevin.dofustuff.object.persistence.entity;
 
+import com.giroux.kevin.dofustuff.commons.item.ItemCategory;
+
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import com.giroux.kevin.dofustuff.object.dto.ItemCategory;
+import java.util.List;
 @Entity
 @Table(name="item", schema="sch_dofustuff")
 public class ItemEntity implements Serializable{
@@ -38,8 +33,16 @@ public class ItemEntity implements Serializable{
 	@Column
 	private String panoplieName = "none";
 	
-	@Column(nullable=true)
+	@Column(name="image_id", nullable=true)
 	private Integer imageId;
+
+	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="properties")
+	private PropertyEntity properties;
+
+	@OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+	private List<EffectEntity> effectEntityList;
+
 	/**
 	 * @return the id
 	 */
@@ -125,6 +128,20 @@ public class ItemEntity implements Serializable{
 		this.imageId = imageId;
 	}
 
-	
-	
+
+	public PropertyEntity getProperties() {
+		return properties;
+	}
+
+	public void setProperties(PropertyEntity properties) {
+		this.properties = properties;
+	}
+
+	public List<EffectEntity> getEffectEntityList() {
+		return effectEntityList;
+	}
+
+	public void setEffectEntityList(List<EffectEntity> effectEntityList) {
+		this.effectEntityList = effectEntityList;
+	}
 }

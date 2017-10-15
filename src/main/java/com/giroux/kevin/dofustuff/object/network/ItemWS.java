@@ -1,18 +1,17 @@
-package com.giroux.kevin.dofustuff.object.webservice;
+package com.giroux.kevin.dofustuff.object.network;
 
-import java.util.List;
-
+import com.giroux.kevin.dofustuff.commons.item.Item;
+import com.giroux.kevin.dofustuff.object.network.exception.NotFoundException;
+import com.giroux.kevin.dofustuff.object.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.giroux.kevin.dofustuff.object.dto.Item;
-import com.giroux.kevin.dofustuff.object.services.ItemService;
-import com.giroux.kevin.dofustuff.object.webservice.exception.NotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/items")
@@ -21,9 +20,8 @@ public class ItemWS {
 	@Autowired
 	private ItemService itemService;
 	
-	@RequestMapping(name="Retrieve Item with Level",  method = RequestMethod.GET, consumes = {
-			MediaType.APPLICATION_JSON_VALUE }, produces = {MediaType.APPLICATION_JSON_VALUE }, value = "/level/")
-	public List<Item> retrieveListObjectByLevel(@RequestParam("level") final Integer level){
+	@RequestMapping(name="Retrieve Item with Level",  method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE }, value = "/level/{level}")
+	public List<Item> retrieveListObjectByLevel(@PathVariable("level") final Integer level){
 		List<Item> returnList = itemService.retrieveListObjectByLevel(level);
 		if(CollectionUtils.isEmpty(returnList)) {
 			throw new NotFoundException();

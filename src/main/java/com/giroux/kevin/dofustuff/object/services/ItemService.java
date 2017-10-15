@@ -1,8 +1,9 @@
 package com.giroux.kevin.dofustuff.object.services;
 
+import com.giroux.kevin.dofustuff.commons.item.Item;
+
 import java.util.List;
 
-import com.giroux.kevin.dofustuff.object.dto.Item;
 
 /**
  * 

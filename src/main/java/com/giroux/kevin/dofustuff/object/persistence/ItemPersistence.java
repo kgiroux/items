@@ -1,13 +1,13 @@
 package com.giroux.kevin.dofustuff.object.persistence;
 
-import java.util.List;
+import com.giroux.kevin.dofustuff.commons.item.Item;
 
-import com.giroux.kevin.dofustuff.object.dto.Item;
+import java.util.List;
 
 public interface ItemPersistence {
 	/**
 	 * Retrieve list of Object with param
-	 * @param type
+	 * @param level
 	 * @return
 	 */
 	List<Item> retrieveListObjectByLevel(final int level);

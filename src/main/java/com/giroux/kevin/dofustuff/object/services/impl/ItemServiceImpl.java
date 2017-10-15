@@ -1,23 +1,22 @@
 package com.giroux.kevin.dofustuff.object.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.giroux.kevin.dofustuff.commons.item.Item;
+import com.giroux.kevin.dofustuff.object.persistence.ItemPersistence;
+import com.giroux.kevin.dofustuff.object.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.giroux.kevin.dofustuff.object.dto.Item;
-import com.giroux.kevin.dofustuff.object.persistence.ItemPersistence;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-public class ItemServiceImpl implements com.giroux.kevin.dofustuff.object.services.ItemService {
+public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemPersistence itemPersistence;
 	
 	public List<Item> retrieveListObjectByLevel(int level) {
-		// TODO Auto-generated method stub
-		return new ArrayList<Item>();
+		return itemPersistence.retrieveListObjectByLevel(level);
 
 	}
 
@@ -33,7 +32,6 @@ public class ItemServiceImpl implements com.giroux.kevin.dofustuff.object.servic
 
 	@Override
 	public void saveItem(Item dto) {
-		// TODO Auto-generated method stub
 		this.itemPersistence.saveItem(dto);
 	}
 
