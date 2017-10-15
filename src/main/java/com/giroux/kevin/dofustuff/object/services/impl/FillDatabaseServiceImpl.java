@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,10 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	private static final String MIN = "min";
 	private static final String MAX = "max";
 
+	@PostConstruct
+	public void initFillDataBase(){
+		this.getParseAndStoreData();
+	}
 
 
 	@Override
