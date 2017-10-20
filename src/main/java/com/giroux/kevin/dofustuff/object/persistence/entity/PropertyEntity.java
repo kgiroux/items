@@ -1,9 +1,16 @@
 package com.giroux.kevin.dofustuff.object.persistence.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "property")
-public class PropertyEntity {
+public class PropertyEntity implements Serializable{
+
+    /**
+     *  serialVersionUID :
+     */
+    private static final long serialVersionUID = -4809179029597022320L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

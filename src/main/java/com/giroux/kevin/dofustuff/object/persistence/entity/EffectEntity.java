@@ -1,10 +1,17 @@
 package com.giroux.kevin.dofustuff.object.persistence.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "effect")
-public class EffectEntity {
+public class EffectEntity implements Serializable{
+
+
+    /**
+     *  serialVersionUID :
+     */
+    private static final long serialVersionUID = -4809179023597024020L;
 
     @Id
     private String internalId;

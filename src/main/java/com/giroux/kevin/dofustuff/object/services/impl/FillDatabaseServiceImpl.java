@@ -70,12 +70,11 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		//String urlStr = "https://www.dofusbook.net/api/items?page=3";
 		String urlStr = "https://www.dofusbook.net/api/items?context=item&equipment=am-an-bo-br-ca-ce-ch-do-fa-mt-mo-mu-sa-tr&level_min=1&level_max=200&page=1&display=list";
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
-			//do{
+			do{
 				stringBuilder =new StringBuilder();
 				HttpGet httpGet = new HttpGet(urlStr);
 				HttpClient client = HttpClientBuilder.create().build();
@@ -92,36 +91,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				JsonObject data = content.getAsJsonObject();
 				LOGGER.info("{}",urlStr);
 				JsonArray arrays = data.get("data").getAsJsonArray();
-				for (JsonElement jsonElement : arrays) {
-					Item item = new Item();
-					item.setLevel(jsonElement.getAsJsonObject().get("level").getAsInt());
-					item.setName(jsonElement.getAsJsonObject().get("name").getAsString());
-					item.setDescription(jsonElement.getAsJsonObject().get("description").getAsString());
-					if(!jsonElement.getAsJsonObject().has("cloth"))
-						item.setCloth(jsonElement.getAsJsonObject().get("cloth").getAsString());
-					item.setCategory(ItemCategory.findByCategory(jsonElement.getAsJsonObject().get("category").getAsString()));
-					item.setImageId(jsonElement.getAsJsonObject().get("picture").getAsInt());
-
-					Property property = this.extractProperties(jsonElement);
-					List<Effect> effectList = this.extractEffect(jsonElement);
-					item.setProperty(property);
-					item.setEffects(effectList);
-
-					LOGGER.info("Item name {}", item.getName());
-					itemService.saveItem(item);
-					if(enabled){
-						getPicturesFromUrl(item);
-						Media media = new Media();
-						media.setFileName( item.getImageId() + EXTENSION);
-						media.setId(String.valueOf(item.getImageId()));
-						media.setName(item.getName());
-						media.setPath("/home/dofustuff/media/" + item.getImageId() + EXTENSION);
-						media.setTypeMedia(TypeMedia.PICTURE);
-						itemClient.saveImageMetadata(media);
-					}
-
-
-				}
+				extractItemFromJson(arrays);
 				if(data.has(META)
 						&& data.get(META).getAsJsonObject().has(PAGINATION)
 						&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().has(LINKS)
@@ -131,12 +101,45 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				}else {
 					urlStr = null;
 				}
-			//}while(urlStr != null);
+			}while(urlStr != null);
 		       	
 	    } catch (IOException e) {
 			LOGGER.error("{}",e);
 			LOGGER.error("{}",stringBuilder.toString());
 		}
+	}
+
+	private void extractItemFromJson(JsonArray arrays) throws IOException {
+		for (JsonElement jsonElement : arrays) {
+            Item item = new Item();
+            item.setLevel(jsonElement.getAsJsonObject().get("level").getAsInt());
+            item.setName(jsonElement.getAsJsonObject().get("name").getAsString());
+            item.setDescription(jsonElement.getAsJsonObject().get("description").getAsString());
+            if(!jsonElement.getAsJsonObject().has("cloth"))
+                item.setCloth(jsonElement.getAsJsonObject().get("cloth").getAsString());
+            item.setCategory(ItemCategory.findByCategory(jsonElement.getAsJsonObject().get("category").getAsString()));
+            item.setImageId(jsonElement.getAsJsonObject().get("picture").getAsInt());
+
+            Property property = this.extractProperties(jsonElement);
+            List<Effect> effectList = this.extractEffect(jsonElement);
+            item.setProperty(property);
+            item.setEffects(effectList);
+
+            LOGGER.info("Item name {}", item.getName());
+            itemService.saveItem(item);
+            if(enabled){
+                getPicturesFromUrl(item);
+                Media media = new Media();
+                media.setFileName( item.getImageId() + EXTENSION);
+                media.setId(String.valueOf(item.getImageId()));
+                media.setName(item.getName());
+                media.setPath("/home/dofustuff/media/" + item.getImageId() + EXTENSION);
+                media.setTypeMedia(TypeMedia.PICTURE);
+                itemClient.saveImageMetadata(media);
+            }
+
+
+        }
 	}
 
 	private void getPicturesFromUrl(Item item) throws IOException {
@@ -186,32 +189,35 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				effect.setId(effectElement.getAsJsonObject().get("id").getAsInt());
 				effect.setMin(effectElement.getAsJsonObject().get(MIN).getAsInt());
 				effect.setMax(effectElement.getAsJsonObject().get(MAX).getAsInt());
-				if(effectElement.getAsJsonObject().has(FM) && !effectElement.getAsJsonObject().get(FM).isJsonNull()){
-
-					effect.setFm(this.extractForgemagie(effectElement));
-				}
 				effect.setName(effectElement.getAsJsonObject().get("name").getAsString());
 				effect.setType(effectElement.getAsJsonObject().get("type").getAsString());
-				if(effectElement.getAsJsonObject().has(OTHER) && !effectElement.getAsJsonObject().get(OTHER).isJsonNull()){
-					effect.setOther(effectElement.getAsJsonObject().get(OTHER).getAsString());
-				}
-				if(effectElement.getAsJsonObject().has(EMOTE) && !effectElement.getAsJsonObject().get(EMOTE).isJsonNull()) {
-					effect.setEmotes(effectElement.getAsJsonObject().get(EMOTE).getAsString());
-				}
-				if(effectElement.getAsJsonObject().has(TITLE) && !effectElement.getAsJsonObject().get(TITLE).isJsonNull()) {
-					effect.setTitle(effectElement.getAsJsonObject().get(TITLE).getAsString());
-				}
-				if(effectElement.getAsJsonObject().has(SPELL) && !effectElement.getAsJsonObject().get(SPELL).isJsonNull()) {
-					effect.setSpell(effectElement.getAsJsonObject().get(SPELL).getAsString());
-				}
-				if(effectElement.getAsJsonObject().has(ISEXO) && !effectElement.getAsJsonObject().get(ISEXO).isJsonNull()) {
-					effect.setExo(effectElement.getAsJsonObject().get(ISEXO).getAsBoolean());
-				}
+				extractEffectThatCanBeNull(effectElement, effect);
 				effects.add(effect);
 			}
 		}
 
 		return effects;
+	}
+
+	private void extractEffectThatCanBeNull(JsonElement effectElement, Effect effect) {
+		if(effectElement.getAsJsonObject().has(FM) && !effectElement.getAsJsonObject().get(FM).isJsonNull()){
+			effect.setFm(this.extractForgemagie(effectElement));
+		}
+		if(effectElement.getAsJsonObject().has(OTHER) && !effectElement.getAsJsonObject().get(OTHER).isJsonNull()){
+            effect.setOther(effectElement.getAsJsonObject().get(OTHER).getAsString());
+        }
+		if(effectElement.getAsJsonObject().has(EMOTE) && !effectElement.getAsJsonObject().get(EMOTE).isJsonNull()) {
+            effect.setEmotes(effectElement.getAsJsonObject().get(EMOTE).getAsString());
+        }
+		if(effectElement.getAsJsonObject().has(TITLE) && !effectElement.getAsJsonObject().get(TITLE).isJsonNull()) {
+            effect.setTitle(effectElement.getAsJsonObject().get(TITLE).getAsString());
+        }
+		if(effectElement.getAsJsonObject().has(SPELL) && !effectElement.getAsJsonObject().get(SPELL).isJsonNull()) {
+            effect.setSpell(effectElement.getAsJsonObject().get(SPELL).getAsString());
+        }
+		if(effectElement.getAsJsonObject().has(ISEXO) && !effectElement.getAsJsonObject().get(ISEXO).isJsonNull()) {
+            effect.setExo(effectElement.getAsJsonObject().get(ISEXO).getAsBoolean());
+        }
 	}
 
 	private ForgeMagie extractForgemagie(JsonElement jsonElement){

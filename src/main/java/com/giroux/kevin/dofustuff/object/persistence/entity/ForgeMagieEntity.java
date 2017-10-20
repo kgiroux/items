@@ -1,10 +1,11 @@
 package com.giroux.kevin.dofustuff.object.persistence.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
-public class ForgeMagieEntity {
+public class ForgeMagieEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
