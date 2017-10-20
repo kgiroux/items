@@ -11,7 +11,7 @@ public class ItemClient {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${network.services.media}")
+    @Value("${network.services.media.url}")
     private String urlMediaService;
 
 

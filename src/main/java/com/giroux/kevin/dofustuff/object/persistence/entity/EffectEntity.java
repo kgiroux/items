@@ -9,7 +9,6 @@ public class EffectEntity {
     @Id
     private String internalId;
 
-
     @Column
     private int id;
 
@@ -37,7 +36,7 @@ public class EffectEntity {
     @Column
     private String spell;
 
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="fm_id")
     private ForgeMagieEntity fm;
 
@@ -45,7 +44,7 @@ public class EffectEntity {
     private boolean exo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "itemId")
+    @JoinColumn(name = "itemId", nullable = false, updatable = false)
     private ItemEntity item;
 
     public int getId() {

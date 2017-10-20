@@ -6,7 +6,6 @@ import com.giroux.kevin.dofustuff.object.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,20 +13,19 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemPersistence itemPersistence;
-	
+
+	@Override
 	public List<Item> retrieveListObjectByLevel(int level) {
 		return itemPersistence.retrieveListObjectByLevel(level);
 
 	}
-
-	public List<Item> retrieveListObjectByType(String type) {
-		// TODO Auto-generated method stub
-		return new ArrayList<Item>();
+	@Override
+	public List<Item> retrieveListObjectByType(final String type) {
+		return itemPersistence.retrieveListObjectByType(type);
 	}
-
+	@Override
 	public List<Item> retrieveListObjectByTypeAndLevel(int level, String type) {
-		// TODO Auto-generated method stub
-		return new ArrayList<Item>();
+		return itemPersistence.retrieveListObjectByTypeAndLevel(level, type);
 	}
 
 	@Override

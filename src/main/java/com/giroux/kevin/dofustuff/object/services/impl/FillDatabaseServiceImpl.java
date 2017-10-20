@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,9 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 
 	@Autowired
 	private ItemClient itemClient;
+
+	@Value("${network.services.media.enabled}")
+	private boolean enabled;
 
 	private static final String META="meta";
 	private static final String PAGINATION="pagination";
@@ -71,7 +75,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
-			do{
+			//do{
 				stringBuilder =new StringBuilder();
 				HttpGet httpGet = new HttpGet(urlStr);
 				HttpClient client = HttpClientBuilder.create().build();
@@ -105,14 +109,17 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 
 					LOGGER.info("Item name {}", item.getName());
 					itemService.saveItem(item);
-					getPicturesFromUrl(item);
-					Media media = new Media();
-					media.setFileName( item.getImageId() + EXTENSION);
-					media.setId(String.valueOf(item.getImageId()));
-					media.setName(item.getName());
-					media.setPath("/home/dofustuff/media/" + item.getImageId() + EXTENSION);
-					media.setTypeMedia(TypeMedia.PICTURE);
-					itemClient.saveImageMetadata(media);
+					if(enabled){
+						getPicturesFromUrl(item);
+						Media media = new Media();
+						media.setFileName( item.getImageId() + EXTENSION);
+						media.setId(String.valueOf(item.getImageId()));
+						media.setName(item.getName());
+						media.setPath("/home/dofustuff/media/" + item.getImageId() + EXTENSION);
+						media.setTypeMedia(TypeMedia.PICTURE);
+						itemClient.saveImageMetadata(media);
+					}
+
 
 				}
 				if(data.has(META)
@@ -124,7 +131,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				}else {
 					urlStr = null;
 				}
-			}while(urlStr != null);
+			//}while(urlStr != null);
 		       	
 	    } catch (IOException e) {
 			LOGGER.error("{}",e);

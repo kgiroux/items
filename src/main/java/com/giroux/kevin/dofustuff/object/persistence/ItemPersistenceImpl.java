@@ -44,6 +44,7 @@ public class ItemPersistenceImpl implements ItemPersistence {
 		List<ItemEntity> result = itemRepository.findByNameAndLevel(item.getName(), item.getLevel());
 		if(CollectionUtils.isEmpty(result)) {
 			ItemEntity itemEntity = itemFactory.dtoToEntity(item);
+			itemEntity.getEffectEntityList().forEach(effectEntity -> effectEntity.setItem(itemEntity));
 			itemRepository.save(itemEntity);   
 		}
 		

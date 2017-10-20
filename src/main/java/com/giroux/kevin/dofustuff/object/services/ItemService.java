@@ -27,14 +27,15 @@ public interface ItemService {
 	List<Item> retrieveListObjectByType(final String type);
 	/**
 	 * Retrieve list of object by level and type
-	 * @param level
-	 * @param type
+	 * @param level level de l'objet
+	 * @param type type de l'objet
+	 * @return list des objets qui correspond aux critères
 	 */
 	List<Item> retrieveListObjectByTypeAndLevel(final int level, final String type);
 	
 	/**
 	 * Save item on the database;
-	 * @param dto
+	 * @param dto l'objet à sauvegarder
 	 */
 	void saveItem(Item dto);
 }

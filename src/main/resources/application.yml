@@ -19,4 +19,6 @@ spring:
     driverClassName: org.postgresql.Driver
 network:
   services:
-    media: http://localhost:8081/medias/metadata
+    media:
+      url: http://localhost:8081/medias/metadata
+      enabled : false

@@ -40,7 +40,7 @@ public class ItemEntity implements Serializable{
 	@JoinColumn(name="properties")
 	private PropertyEntity properties;
 
-	@OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item",cascade = CascadeType.ALL)
 	private List<EffectEntity> effectEntityList;
 
 	/**
