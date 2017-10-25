@@ -21,6 +21,7 @@ public class ItemFactory implements Factory<ItemEntity, Item> {
 	public Item entityToDto(ItemEntity entity) {
 		Item item = new Item();
 		item.setCategory(entity.getCategory());
+		item.setId(entity.getId());
 		item.setCloth(entity.getPanoplieName());
 		item.setDescription(entity.getDescription());
 		item.setImageId(entity.getImageId());
@@ -35,7 +36,11 @@ public class ItemFactory implements Factory<ItemEntity, Item> {
 
 	public ItemEntity dtoToEntity(Item dto) {
 		ItemEntity itemEntity = new ItemEntity();
-		itemEntity.setId(String.valueOf(UUID.randomUUID()));
+		if(null == itemEntity.getId() ){
+			itemEntity.setId(String.valueOf(UUID.randomUUID()));
+		}else{
+			itemEntity.setId(dto.getId());
+		}
 		itemEntity.setLevel(dto.getLevel());
 		itemEntity.setName(dto.getName());
 		itemEntity.setPanoplieName(dto.getCloth());

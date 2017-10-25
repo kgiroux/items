@@ -19,7 +19,12 @@ public class ItemWS {
 
 	@Autowired
 	private ItemService itemService;
-	
+
+	/**
+	 * @period
+	 * @param level
+	 * @return
+	 */
 	@RequestMapping(name="Retrieve Item with Level",  method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE }, value = "/level/{level}")
 	public List<Item> retrieveListObjectByLevel(@PathVariable("level") final Integer level){
 		List<Item> returnList = itemService.retrieveListObjectByLevel(level);
