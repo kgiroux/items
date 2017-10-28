@@ -36,7 +36,7 @@ public class ItemWS {
 
 	@RequestMapping(name="Retrieve Item with Level and type",  method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE }, value = "/level/{level}/type/{type}")
 	public List<Item> retrieveListObjectByLevelAndType(@PathVariable("level") final Integer level, @PathVariable("type") final String type ){
-		List<Item> returnList = itemService.retrieveListObjectByTypeAndLevel(level,type);
+		List<Item> returnList = itemService.retrieveListObjectByTypeAndLevel(level,type.toLowerCase());
 		if(CollectionUtils.isEmpty(returnList)) {
 			throw new NotFoundException();
 		}
