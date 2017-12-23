@@ -14,6 +14,24 @@
 		<component.name>${project.artifactId}</component.name>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>nexus-internal</id>
+			<url>https://nexus.nexus-factory.ovh/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>https://nexus.nexus-factory.ovh/repository/maven-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>https://nexus.nexus-factory.ovh/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
