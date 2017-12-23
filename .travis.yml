@@ -5,5 +5,5 @@ cache:
   directories: 
     - $HOME/.cache/java/ 
     - $HOME/.m2
-script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V deploy -s settings.xml
 
