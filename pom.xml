@@ -35,9 +35,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 	</parent>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/io.airbrake/javabrake -->
+		<dependency>
+			<groupId>io.airbrake</groupId>
+			<artifactId>javabrake</artifactId>
+			<version>0.1.4</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.giroux.kevin.dofustuff</groupId>
 			<artifactId>commons</artifactId>

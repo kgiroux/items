@@ -4,6 +4,7 @@ import com.giroux.kevin.dofustuff.commons.item.*;
 import com.giroux.kevin.dofustuff.commons.media.Media;
 import com.giroux.kevin.dofustuff.commons.media.TypeMedia;
 import com.giroux.kevin.dofustuff.object.network.clients.ItemClient;
+import com.giroux.kevin.dofustuff.object.notifier.NotifierAirBrake;
 import com.giroux.kevin.dofustuff.object.services.FillDatabaseService;
 import com.giroux.kevin.dofustuff.object.services.ItemService;
 import com.google.gson.JsonArray;
@@ -104,6 +105,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 			}while(urlStr != null);
 		       	
 	    } catch (IOException e) {
+			NotifierAirBrake.getInstance().report(e);
 			LOGGER.error("{}",e);
 			LOGGER.error("{}",stringBuilder.toString());
 		}
