@@ -1,4 +1,6 @@
 language: java
+env:
+  - CACHE_NAME=COMMONS
 cache:
   directories: 
     - $HOME/.cache/java/ 
