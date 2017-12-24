@@ -117,7 +117,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
             Item item = new Item();
             item.setLevel(jsonElement.getAsJsonObject().get("level").getAsInt());
             item.setName(jsonElement.getAsJsonObject().get("name").getAsString());
-            if(jsonElement.getAsJsonObject().has("description") && !jsonElement.getAsJsonObject().isJsonNull()){
+            if(jsonElement.getAsJsonObject().has("description")){
 				item.setDescription(jsonElement.getAsJsonObject().get("description").getAsString());
 			}
 
