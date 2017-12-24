@@ -68,7 +68,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		String urlStr = "https://www.dofusbook.net/api/items?page=1";
+		String urlStr = "https://www.dofusbook.net/api/items?page=181";
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
@@ -178,12 +178,42 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 
 		Property properties = new Property();
 		if(null != jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES) ){
-			properties.setPaCost(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("pa_cost").getAsInt());
-			properties.setPoRange(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("po_range").getAsString());
-			properties.setCcBonus(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_bonus").getAsInt());
-			properties.setCcRate(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_rate").getAsInt());
-			properties.setCcHits(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_hits").getAsInt());
-			properties.setHitsCount(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("hits_count").getAsInt());
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("pa_cost")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("pa_cost").isJsonNull()){
+				properties.setPaCost(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("pa_cost").getAsInt());
+
+			}
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("hits_count")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("hits_count").isJsonNull()){
+				properties.setHitsCount(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("hits_count").getAsInt());
+
+			}
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("cc_hits")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_hits").isJsonNull()){
+				properties.setCcHits(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_hits").getAsInt());
+
+			}
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("cc_rate")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_rate").isJsonNull()){
+				properties.setCcRate(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_rate").getAsInt());
+
+			}
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("cc_bonus")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_bonus").isJsonNull()){
+				properties.setCcBonus(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("cc_bonus").getAsInt());
+
+			}
+
+			if(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).has("po_range")
+					&& !jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("po_range").isJsonNull()){
+				properties.setPoRange(jsonElement.getAsJsonObject().getAsJsonObject(PROPERTIES).get("po_range").getAsString());
+
+			}
 		}
 
 
