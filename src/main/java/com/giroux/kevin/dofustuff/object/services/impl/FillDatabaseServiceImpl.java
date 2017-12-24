@@ -71,7 +71,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		String urlStr = "https://www.dofusbook.net/api/items?page=1";
+		String urlStr = "https://www.dofusbook.net/api/items?page=82";
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
@@ -117,7 +117,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
             Item item = new Item();
             item.setLevel(jsonElement.getAsJsonObject().get("level").getAsInt());
             item.setName(jsonElement.getAsJsonObject().get("name").getAsString());
-            if(jsonElement.getAsJsonObject().has("description")){
+            if(jsonElement.getAsJsonObject().has("description") && !jsonElement.getAsJsonObject().get("description").isJsonNull()){
 				item.setDescription(jsonElement.getAsJsonObject().get("description").getAsString());
 			}
 
