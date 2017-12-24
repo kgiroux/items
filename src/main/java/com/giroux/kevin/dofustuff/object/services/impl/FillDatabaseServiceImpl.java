@@ -68,7 +68,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		String urlStr = "https://www.dofusbook.net/api/items?page=166";
+		String urlStr = "https://www.dofusbook.net/api/items?page=1";
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
