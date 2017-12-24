@@ -10,30 +10,37 @@ public class PropertyFactory implements Factory<PropertyEntity,Property> {
 
     @Override
     public Property entityToDto(PropertyEntity entity) {
-        Property property = new Property();
-        property.setPaCost(entity.getPaCost());
-        property.setCcBonus(entity.getCcBonus());
-        property.setCcHits(entity.getCcHits());
-        property.setCcRate(entity.getCcRate());
-        property.setHitsCount(entity.getHitsCount());
-        property.setPoRange(entity.getPoRange());
-        property.setId(entity.getId());
+        if(entity != null){
+            Property property = new Property();
+            property.setPaCost(entity.getPaCost());
+            property.setCcBonus(entity.getCcBonus());
+            property.setCcHits(entity.getCcHits());
+            property.setCcRate(entity.getCcRate());
+            property.setHitsCount(entity.getHitsCount());
+            property.setPoRange(entity.getPoRange());
+            property.setId(entity.getId());
 
-        return property;
+            return property;
+        }
+        return null;
+
     }
 
     @Override
     public PropertyEntity dtoToEntity(Property dto) {
+        if(dto != null){
+            PropertyEntity property = new PropertyEntity();
+            property.setPaCost(dto.getPaCost());
+            property.setCcBonus(dto.getCcBonus());
+            property.setCcHits(dto.getCcHits());
+            property.setCcRate(dto.getCcRate());
+            property.setHitsCount(dto.getHitsCount());
+            property.setPoRange(dto.getPoRange());
+            property.setId(dto.getId());
 
-        PropertyEntity property = new PropertyEntity();
-        property.setPaCost(dto.getPaCost());
-        property.setCcBonus(dto.getCcBonus());
-        property.setCcHits(dto.getCcHits());
-        property.setCcRate(dto.getCcRate());
-        property.setHitsCount(dto.getHitsCount());
-        property.setPoRange(dto.getPoRange());
-        property.setId(dto.getId());
+            return property;
+        }
+        return null;
 
-        return property;
     }
 }

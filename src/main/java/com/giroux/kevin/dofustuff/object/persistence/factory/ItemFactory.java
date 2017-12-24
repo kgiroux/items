@@ -19,38 +19,46 @@ public class ItemFactory implements Factory<ItemEntity, Item> {
 	private PropertyFactory propertyFactory;
 
 	public Item entityToDto(ItemEntity entity) {
-		Item item = new Item();
-		item.setCategory(entity.getCategory());
-		item.setId(entity.getId());
-		item.setCloth(entity.getPanoplieName());
-		item.setDescription(entity.getDescription());
-		item.setImageId(entity.getImageId());
-		item.setLevel(entity.getLevel());
-		item.setName(entity.getName());
+		if(entity != null){
+			Item item = new Item();
+			item.setCategory(entity.getCategory());
+			item.setId(entity.getId());
+			item.setCloth(entity.getPanoplieName());
+			item.setDescription(entity.getDescription());
+			item.setImageId(entity.getImageId());
+			item.setLevel(entity.getLevel());
+			item.setName(entity.getName());
 
-		item.setProperty(propertyFactory.entityToDto(entity.getProperties()));
-		item.setEffects(entity.getEffectEntityList().stream().map(effectFactory::entityToDto).collect(Collectors.toList()));
+			item.setProperty(propertyFactory.entityToDto(entity.getProperties()));
+			item.setEffects(entity.getEffectEntityList().stream().map(effectFactory::entityToDto).collect(Collectors.toList()));
 
-		return item;
+			return item;
+		}
+		return null;
+
 	}
 
 	public ItemEntity dtoToEntity(Item dto) {
-		ItemEntity itemEntity = new ItemEntity();
-		if(null == itemEntity.getId() ){
-			itemEntity.setId(String.valueOf(UUID.randomUUID()));
-		}else{
-			itemEntity.setId(dto.getId());
-		}
-		itemEntity.setLevel(dto.getLevel());
-		itemEntity.setName(dto.getName());
-		itemEntity.setPanoplieName(dto.getCloth());
-		itemEntity.setDescription(dto.getDescription());
-		itemEntity.setCategory(dto.getCategory());
-		itemEntity.setImageId(dto.getImageId());
+		if(dto != null){
+			ItemEntity itemEntity = new ItemEntity();
+			if(null == itemEntity.getId() ){
+				itemEntity.setId(String.valueOf(UUID.randomUUID()));
+			}else{
+				itemEntity.setId(dto.getId());
+			}
+			itemEntity.setLevel(dto.getLevel());
+			itemEntity.setName(dto.getName());
+			itemEntity.setPanoplieName(dto.getCloth());
+			itemEntity.setDescription(dto.getDescription());
+			itemEntity.setCategory(dto.getCategory());
+			itemEntity.setImageId(dto.getImageId());
 
-		itemEntity.setProperties(propertyFactory.dtoToEntity(dto.getProperty()));
-		itemEntity.setEffectEntityList(dto.getEffects().stream().map(effectFactory::dtoToEntity).collect(Collectors.toList()));
-		return itemEntity;
+			itemEntity.setProperties(propertyFactory.dtoToEntity(dto.getProperty()));
+			itemEntity.setEffectEntityList(dto.getEffects().stream().map(effectFactory::dtoToEntity).collect(Collectors.toList()));
+			return itemEntity;
+		}
+		return null;
+
 	}
 
 }

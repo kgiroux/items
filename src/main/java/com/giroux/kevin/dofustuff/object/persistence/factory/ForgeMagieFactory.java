@@ -12,13 +12,16 @@ public class ForgeMagieFactory implements Factory<ForgeMagieEntity,ForgeMagie> {
     @Override
     public ForgeMagie entityToDto(ForgeMagieEntity entity) {
 
-        ForgeMagie forgeMagie = new ForgeMagie();
-        forgeMagie.setMax(entity.getMax());
-        forgeMagie.setMin(entity.getMin());
-        forgeMagie.setElt(entity.getElt());
-        forgeMagie.setId(entity.getId());
-        forgeMagie.setValue(entity.getValue());
-        return forgeMagie;
+        if(entity != null){
+            ForgeMagie forgeMagie = new ForgeMagie();
+            forgeMagie.setMax(entity.getMax());
+            forgeMagie.setMin(entity.getMin());
+            forgeMagie.setElt(entity.getElt());
+            forgeMagie.setId(entity.getId());
+            forgeMagie.setValue(entity.getValue());
+            return forgeMagie;
+        }
+        return null;
 
     }
 
