@@ -7,10 +7,7 @@ import com.giroux.kevin.dofustuff.object.network.clients.ItemClient;
 import com.giroux.kevin.dofustuff.object.notifier.NotifierAirBrake;
 import com.giroux.kevin.dofustuff.object.services.FillDatabaseService;
 import com.giroux.kevin.dofustuff.object.services.ItemService;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -71,7 +68,7 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		String urlStr = "https://www.dofusbook.net/api/items?page=1";
+		String urlStr = "https://www.dofusbook.net/api/items?page=166";
 		StringBuilder stringBuilder = new StringBuilder();
 	    try 
 	    {
@@ -88,21 +85,29 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				}
 				stream.close();
 				JsonParser parser = new JsonParser();
-				JsonElement content  = parser.parse(stringBuilder.toString());
-				JsonObject data = content.getAsJsonObject();
-				LOGGER.info("{}",urlStr);
-				JsonArray arrays = data.get("data").getAsJsonArray();
-				extractItemFromJson(arrays);
-				if(data.has(META)
-						&& data.get(META).getAsJsonObject().has(PAGINATION)
-						&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().has(LINKS)
-						&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).isJsonObject()
-						&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().has(NEXT)
-				) {
-					urlStr = data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().get(NEXT).getAsString();
-				}else {
-					urlStr = null;
+				try{
+					JsonElement content  = parser.parse(stringBuilder.toString());
+					JsonObject data = content.getAsJsonObject();
+					LOGGER.info("{}",urlStr);
+					JsonArray arrays = data.get("data").getAsJsonArray();
+					extractItemFromJson(arrays);
+					if(data.has(META)
+							&& data.get(META).getAsJsonObject().has(PAGINATION)
+							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().has(LINKS)
+							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).isJsonObject()
+							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().has(NEXT)
+							) {
+						urlStr = data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().get(NEXT).getAsString();
+					}else {
+						urlStr = null;
+					}
+				}catch (JsonSyntaxException ex){
+					NotifierAirBrake.getInstance().report(ex);
+					LOGGER.error("{}",ex);
+					LOGGER.error("{}",stringBuilder.toString());
 				}
+
+
 			}while(urlStr != null);
 		       	
 	    } catch (IOException e) {
