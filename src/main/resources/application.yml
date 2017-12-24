@@ -13,7 +13,7 @@ spring:
       ddl-auto: update
   datasource:
     platform : postgres
-    url: jdbc:postgresql://localhost:5432/dofustuff?currentSchema=sch_dofustuff
+    url: jdbc:postgresql://localhost:5433/dofustuff?currentSchema=sch_dofustuff
     username: dofustuff
     password: "DofusStuff01*"
     driverClassName: org.postgresql.Driver
