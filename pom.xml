@@ -3,15 +3,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.giroux.kevin.dofustuff</groupId>
-	<artifactId>object</artifactId>
+	<artifactId>items</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>DofuStuff- Object</name>
+	<name>DofuStuff- Items</name>
 	<url>http://maven.apache.org</url>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<component.name>${project.artifactId}</component.name>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<eureka.host>51.254.133.167</eureka.host>
+		<eureka.port>80</eureka.port>
+
 	</properties>
 
 	<repositories>
@@ -44,10 +49,14 @@
 			<artifactId>javabrake</artifactId>
 			<version>0.1.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.giroux.kevin.dofustuff</groupId>
 			<artifactId>commons</artifactId>
+			<version>0.1.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.giroux.kevin.dofustuff</groupId>
+			<artifactId>security</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

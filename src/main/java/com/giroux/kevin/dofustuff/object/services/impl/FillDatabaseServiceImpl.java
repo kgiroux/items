@@ -64,56 +64,61 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 		this.getParseAndStoreData();
 	}
 
+	@Value("${network.services.media.extractor}")
+	private boolean extractor;
+
 
 	@Override
 	@Scheduled(cron = "0 0 1 1 1/1 ? ")
 	public void getParseAndStoreData(){
-		String urlStr = "https://www.dofusbook.net/api/items?page=1";
-		StringBuilder stringBuilder = new StringBuilder();
-	    try 
-	    {
-			do{
-				stringBuilder =new StringBuilder();
-				HttpGet httpGet = new HttpGet(urlStr);
-				HttpClient client = HttpClientBuilder.create().build();
-				HttpResponse response = client.execute(httpGet);
-				HttpEntity entity = response.getEntity();
-				InputStream stream = entity.getContent();
-				int b;
-				while ((b = stream.read()) != -1) {
-					stringBuilder.append((char) b);
-				}
-				stream.close();
-				JsonParser parser = new JsonParser();
-				try{
-					JsonElement content  = parser.parse(stringBuilder.toString());
-					JsonObject data = content.getAsJsonObject();
-					LOGGER.info("{}",urlStr);
-					JsonArray arrays = data.get("data").getAsJsonArray();
-					extractItemFromJson(arrays);
-					if(data.has(META)
-							&& data.get(META).getAsJsonObject().has(PAGINATION)
-							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().has(LINKS)
-							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).isJsonObject()
-							&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().has(NEXT)
-							) {
-						urlStr = data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().get(NEXT).getAsString();
-					}else {
-						urlStr = null;
+		if(extractor){
+			String urlStr = "https://www.dofusbook.net/api/items?page=1";
+			StringBuilder stringBuilder = new StringBuilder();
+			try
+			{
+				do{
+					stringBuilder =new StringBuilder();
+					HttpGet httpGet = new HttpGet(urlStr);
+					HttpClient client = HttpClientBuilder.create().build();
+					HttpResponse response = client.execute(httpGet);
+					HttpEntity entity = response.getEntity();
+					InputStream stream = entity.getContent();
+					int b;
+					while ((b = stream.read()) != -1) {
+						stringBuilder.append((char) b);
 					}
-				}catch (JsonSyntaxException ex){
-					NotifierAirBrake.getInstance().report(ex);
-					LOGGER.error("{}",ex);
-					LOGGER.error("{}",stringBuilder.toString());
-				}
+					stream.close();
+					JsonParser parser = new JsonParser();
+					try{
+						JsonElement content  = parser.parse(stringBuilder.toString());
+						JsonObject data = content.getAsJsonObject();
+						LOGGER.info("{}",urlStr);
+						JsonArray arrays = data.get("data").getAsJsonArray();
+						extractItemFromJson(arrays);
+						if(data.has(META)
+								&& data.get(META).getAsJsonObject().has(PAGINATION)
+								&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().has(LINKS)
+								&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).isJsonObject()
+								&& data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().has(NEXT)
+								) {
+							urlStr = data.get(META).getAsJsonObject().get(PAGINATION).getAsJsonObject().get(LINKS).getAsJsonObject().get(NEXT).getAsString();
+						}else {
+							urlStr = null;
+						}
+					}catch (JsonSyntaxException ex){
+						NotifierAirBrake.getInstance().report(ex);
+						LOGGER.error("{}",ex);
+						LOGGER.error("{}",stringBuilder.toString());
+					}
 
 
-			}while(urlStr != null);
-		       	
-	    } catch (IOException e) {
-			NotifierAirBrake.getInstance().report(e);
-			LOGGER.error("{}",e);
-			LOGGER.error("{}",stringBuilder.toString());
+				}while(urlStr != null);
+
+			} catch (IOException e) {
+				NotifierAirBrake.getInstance().report(e);
+				LOGGER.error("{}",e);
+				LOGGER.error("{}",stringBuilder.toString());
+			}
 		}
 	}
 

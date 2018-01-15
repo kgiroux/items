@@ -21,4 +21,19 @@ network:
   services:
     media:
       url: http://localhost:8081/medias/metadata
-      enabled : false
+      enabled: false
+      extractor: false
+eureka:
+  instance:
+    prefer-ip-address: true
+    appname: @component.name@
+    instanceId: @component.name@:${spring.application.instance_id:${random.value}}
+    hostname: localhost
+  client:
+    enabled: true
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://@eureka.host@:@eureka.port@/eureka/
+  ribbon:
+    enabled: true

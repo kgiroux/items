@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 @Entity
-@Table(name="item", schema="sch_dofustuff")
+@Table(name="item")
 public class ItemEntity implements Serializable{
 
 	/**
