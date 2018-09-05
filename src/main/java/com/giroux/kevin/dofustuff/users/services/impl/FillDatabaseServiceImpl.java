@@ -4,7 +4,6 @@ import com.giroux.kevin.dofustuff.commons.item.*;
 import com.giroux.kevin.dofustuff.commons.media.Media;
 import com.giroux.kevin.dofustuff.commons.media.TypeMedia;
 import com.giroux.kevin.dofustuff.object.network.clients.ItemClient;
-import com.giroux.kevin.dofustuff.object.notifier.NotifierAirBrake;
 import com.giroux.kevin.dofustuff.object.services.FillDatabaseService;
 import com.giroux.kevin.dofustuff.object.services.ItemService;
 import com.google.gson.*;
@@ -69,10 +68,11 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 
 
 	@Override
-	@Scheduled(cron = "0 0 1 1 1/1 ? ")
+	//@Scheduled(cron = "0 0 1 1 1/1 ? ")
+	@Scheduled(cron = "0 * * * * ? ")
 	public void getParseAndStoreData(){
 		if(extractor){
-			String urlStr = "https://www.dofusbook.net/api/items?page=1";
+			String urlStr = "https://www.dofusbook.net/api/items/search/equipment?page=2";
 			StringBuilder stringBuilder = new StringBuilder();
 			try
 			{
@@ -106,7 +106,6 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 							urlStr = null;
 						}
 					}catch (JsonSyntaxException ex){
-						NotifierAirBrake.getInstance().report(ex);
 						LOGGER.error("{}",ex);
 						LOGGER.error("{}",stringBuilder.toString());
 					}
@@ -115,7 +114,6 @@ public class FillDatabaseServiceImpl implements FillDatabaseService {
 				}while(urlStr != null);
 
 			} catch (IOException e) {
-				NotifierAirBrake.getInstance().report(e);
 				LOGGER.error("{}",e);
 				LOGGER.error("{}",stringBuilder.toString());
 			}

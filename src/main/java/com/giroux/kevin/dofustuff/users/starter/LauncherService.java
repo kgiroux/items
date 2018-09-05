@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
  * 
  * Copyright notice
  * LauncherService.java
- * Classe principale pour le lancement du micro-service Acquisition CTU
+ * Classe principale pour le lancement du micro-service
  * @version v1
  * @author Kévin Giroux
  * 5 septembre 2017
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan({ "com.giroux.kevin.dofustuff.object" })
 public class LauncherService {
-		
+
 	/**
 	 * Lance l'application spring boot
 	 * @param args

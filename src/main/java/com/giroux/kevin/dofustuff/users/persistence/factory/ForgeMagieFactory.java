@@ -2,8 +2,6 @@ package com.giroux.kevin.dofustuff.object.persistence.factory;
 
 import com.giroux.kevin.dofustuff.commons.item.ForgeMagie;
 import com.giroux.kevin.dofustuff.commons.utils.Factory;
-import com.giroux.kevin.dofustuff.object.network.exception.NotFoundException;
-import com.giroux.kevin.dofustuff.object.notifier.NotifierAirBrake;
 import com.giroux.kevin.dofustuff.object.persistence.entity.ForgeMagieEntity;
 import org.springframework.stereotype.Component;
 
