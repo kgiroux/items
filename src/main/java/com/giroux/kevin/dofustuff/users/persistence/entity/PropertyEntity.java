@@ -1,4 +1,4 @@
-package com.giroux.kevin.dofustuff.object.persistence.entity;
+package com.giroux.kevin.dofustuff.users.persistence.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

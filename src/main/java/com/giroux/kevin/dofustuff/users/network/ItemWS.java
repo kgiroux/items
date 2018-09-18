@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.network;
+package com.giroux.kevin.dofustuff.users.network;
 
 import com.giroux.kevin.dofustuff.commons.item.Item;
-import com.giroux.kevin.dofustuff.object.network.exception.NotFoundException;
-import com.giroux.kevin.dofustuff.object.services.ItemService;
+import com.giroux.kevin.dofustuff.users.network.exception.NotFoundException;
+import com.giroux.kevin.dofustuff.users.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.CollectionUtils;

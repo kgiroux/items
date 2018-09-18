@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.persistence.factory;
+package com.giroux.kevin.dofustuff.users.persistence.factory;
 
 import com.giroux.kevin.dofustuff.commons.item.Item;
 import com.giroux.kevin.dofustuff.commons.utils.Factory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.ItemEntity;
+import com.giroux.kevin.dofustuff.users.persistence.entity.ItemEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

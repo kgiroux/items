@@ -1,10 +1,10 @@
-package com.giroux.kevin.dofustuff.object.persistence;
+package com.giroux.kevin.dofustuff.users.persistence;
 
 import com.giroux.kevin.dofustuff.commons.item.Item;
 import com.giroux.kevin.dofustuff.commons.item.ItemCategory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.ItemEntity;
-import com.giroux.kevin.dofustuff.object.persistence.factory.ItemFactory;
-import com.giroux.kevin.dofustuff.object.persistence.repository.ItemRepository;
+import com.giroux.kevin.dofustuff.users.persistence.entity.ItemEntity;
+import com.giroux.kevin.dofustuff.users.persistence.factory.ItemFactory;
+import com.giroux.kevin.dofustuff.users.persistence.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;

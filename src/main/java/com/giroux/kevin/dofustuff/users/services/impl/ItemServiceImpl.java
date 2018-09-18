@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.services.impl;
+package com.giroux.kevin.dofustuff.users.services.impl;
 
 import com.giroux.kevin.dofustuff.commons.item.Item;
-import com.giroux.kevin.dofustuff.object.persistence.ItemPersistence;
-import com.giroux.kevin.dofustuff.object.services.ItemService;
+import com.giroux.kevin.dofustuff.users.persistence.ItemPersistence;
+import com.giroux.kevin.dofustuff.users.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

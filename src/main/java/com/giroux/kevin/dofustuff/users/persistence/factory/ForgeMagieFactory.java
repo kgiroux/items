@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.persistence.factory;
+package com.giroux.kevin.dofustuff.users.persistence.factory;
 
 import com.giroux.kevin.dofustuff.commons.item.ForgeMagie;
 import com.giroux.kevin.dofustuff.commons.utils.Factory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.ForgeMagieEntity;
+import com.giroux.kevin.dofustuff.users.persistence.entity.ForgeMagieEntity;
 import org.springframework.stereotype.Component;
 
 @Component

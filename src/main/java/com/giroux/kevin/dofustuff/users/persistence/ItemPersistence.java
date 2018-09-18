@@ -1,4 +1,4 @@
-package com.giroux.kevin.dofustuff.object.persistence;
+package com.giroux.kevin.dofustuff.users.persistence;
 
 import com.giroux.kevin.dofustuff.commons.item.Item;
 

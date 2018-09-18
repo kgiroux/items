@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.persistence.factory;
+package com.giroux.kevin.dofustuff.users.persistence.factory;
 
 import com.giroux.kevin.dofustuff.commons.item.Effect;
 import com.giroux.kevin.dofustuff.commons.utils.Factory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.EffectEntity;
+import com.giroux.kevin.dofustuff.users.persistence.entity.EffectEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

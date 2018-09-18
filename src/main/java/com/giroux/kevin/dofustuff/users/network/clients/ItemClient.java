@@ -1,4 +1,4 @@
-package com.giroux.kevin.dofustuff.object.network.clients;
+package com.giroux.kevin.dofustuff.users.network.clients;
 
 import com.giroux.kevin.dofustuff.commons.media.Media;
 import org.springframework.beans.factory.annotation.Value;

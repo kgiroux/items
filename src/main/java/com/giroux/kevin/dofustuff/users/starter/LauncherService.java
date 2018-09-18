@@ -1,4 +1,4 @@
-package com.giroux.kevin.dofustuff.object.starter;
+package com.giroux.kevin.dofustuff.users.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan({ "com.giroux.kevin.dofustuff.object" })
+@ComponentScan({"com.giroux.kevin.dofustuff.users"})
 public class LauncherService {
 
 	/**

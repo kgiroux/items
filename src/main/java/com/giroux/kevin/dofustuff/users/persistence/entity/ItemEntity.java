@@ -1,4 +1,4 @@
-package com.giroux.kevin.dofustuff.object.persistence.entity;
+package com.giroux.kevin.dofustuff.users.persistence.entity;
 
 import com.giroux.kevin.dofustuff.commons.item.ItemCategory;
 

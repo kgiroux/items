@@ -1,8 +1,8 @@
-package com.giroux.kevin.dofustuff.object.persistence.factory;
+package com.giroux.kevin.dofustuff.users.persistence.factory;
 
 import com.giroux.kevin.dofustuff.commons.item.Property;
 import com.giroux.kevin.dofustuff.commons.utils.Factory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.PropertyEntity;
+import com.giroux.kevin.dofustuff.users.persistence.entity.PropertyEntity;
 import org.springframework.stereotype.Service;
 
 @Service

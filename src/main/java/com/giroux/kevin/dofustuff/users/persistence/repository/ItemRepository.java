@@ -1,7 +1,7 @@
-package com.giroux.kevin.dofustuff.object.persistence.repository;
+package com.giroux.kevin.dofustuff.users.persistence.repository;
 
 import com.giroux.kevin.dofustuff.commons.item.ItemCategory;
-import com.giroux.kevin.dofustuff.object.persistence.entity.ItemEntity;
+import com.giroux.kevin.dofustuff.users.persistence.entity.ItemEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

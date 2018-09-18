@@ -1,11 +1,11 @@
-package com.giroux.kevin.dofustuff.object.services.impl;
+package com.giroux.kevin.dofustuff.users.services.impl;
 
 import com.giroux.kevin.dofustuff.commons.item.*;
 import com.giroux.kevin.dofustuff.commons.media.Media;
 import com.giroux.kevin.dofustuff.commons.media.TypeMedia;
-import com.giroux.kevin.dofustuff.object.network.clients.ItemClient;
-import com.giroux.kevin.dofustuff.object.services.FillDatabaseService;
-import com.giroux.kevin.dofustuff.object.services.ItemService;
+import com.giroux.kevin.dofustuff.users.network.clients.ItemClient;
+import com.giroux.kevin.dofustuff.users.services.FillDatabaseService;
+import com.giroux.kevin.dofustuff.users.services.ItemService;
 import com.google.gson.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
